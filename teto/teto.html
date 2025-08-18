@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jogo da Memória - Teto</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffc6c6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #8b2e2e;
+      margin-bottom: 10px;
+    }
+
+    #game {
+      display: grid;
+      grid-template-columns: repeat(5, 100px);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .card {
+      width: 100px;
+      height: 100px;
+      border: 2px solid rgb(204, 204, 204);
+      cursor: pointer;
+      background-image: url(https://i1.sndcdn.com/artworks-2INnnIsieM3gCeT5-YeKA6Q-t500x500.jpg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .card.flipped img {
+      display: block;
+    }
+
+    .card.matched {
+      border-color: #c80000;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jogo da Memória da Teto 🎶</h1>
+  <p>Encontre todos os pares da Teto!</p>
+  <div id="game"></div>
+
+  <script>
+    const TetoImages = [
+  "https://i.pinimg.com/736x/cd/b8/b1/cdb8b13a6bcfd866c4cb671056e2f877.jpg",
+  "https://c.tenor.com/XGJI6K2MY_QAAAAC/tenor.gif",
+  "https://c.tenor.com/FuwDM9wcTa4AAAAC/tenor.gif",
+  "https://c.tenor.com/lxCxyfvsn6oAAAAd/tenor.gif",
+  "https://c.tenor.com/Q9giFpvycSUAAAAC/tenor.gif",
+  "https://c.tenor.com/b1gkRipbSvUAAAAC/tenor.gif",
+  "https://c.tenor.com/3AfRYQOSlD8AAAAC/tenor.gif",
+  "https://i.pinimg.com/736x/6c/dc/fa/6cdcfae91107fbfd153b8c30349679c4.jpg",
+  "https://i.pinimg.com/originals/eb/5a/6b/eb5a6b91d6545ef6dc128a217db35c6d.jpg",
+  "https://i.pinimg.com/736x/b7/39/0d/b7390dadc9886862170d0b130cfd53cb.jpg",
+  "https://i.pinimg.com/736x/89/de/6b/89de6b0fc69240be35cc162a3207db6c.jpg",
+  "https://i.pinimg.com/736x/bb/82/43/bb8243c649c9a4cc9ce9e77fd7096a0d.jpg",
+  "https://i.pinimg.com/736x/ad/f2/26/adf226c2fcc9ee3b3fa5d98159a43660.jpg",
+  "https://i.pinimg.com/736x/f9/8f/b1/f98fb15024d287b82c34b4b1364de1d4.jpg",
+  "https://i.pinimg.com/736x/33/62/83/3362831ee6533f906c38ada0fb5f41c4.jpg"
+];
+
+
+    const cards = [...TetoImages, ...TetoImages]; // 2 de cada imagem
+    let flippedCards = [];
+    let matchedCards = [];
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function createBoard() {
+      shuffle(cards);
+      const game = document.getElementById("game");
+      game.innerHTML = "";
+      matchedCards = [];
+      flippedCards = [];
+
+      cards.forEach((imgSrc, index) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.dataset.index = index;
+        card.dataset.image = imgSrc;
+
+        const img = document.createElement("img");
+        img.src = imgSrc;
+
+        card.appendChild(img);
+        card.addEventListener("click", handleCardClick);
+        game.appendChild(card);
+      });
+    }
+
+    function handleCardClick(e) {
+      const card = e.currentTarget;
+      const index = card.dataset.index;
+
+      if (
+        flippedCards.length < 2 &&
+        !card.classList.contains("flipped") &&
+        !card.classList.contains("matched")
+      ) {
+        card.classList.add("flipped");
+        flippedCards.push(card);
+
+        if (flippedCards.length === 2) {
+          checkMatch();
+        }
+      }
+    }
+
+    function checkMatch() {
+      const [card1, card2] = flippedCards;
+      if (card1.dataset.image === card2.dataset.image) {
+        card1.classList.add("matched");
+        card2.classList.add("matched");
+        matchedCards.push(card1, card2);
+        flippedCards = [];
+
+        if (matchedCards.length === cards.length) {
+          setTimeout(() => {
+            alert("Você encontrou todos os pares da Teto! 🌟");
+            createBoard();
+          }, 500);
+        }
+      } else {
+        setTimeout(() => {
+          card1.classList.remove("flipped");
+          card2.classList.remove("flipped");
+          flippedCards = [];
+        }, 800);
+      }
+    }
+
+    createBoard();
+  </script>
+</body>
+</html>

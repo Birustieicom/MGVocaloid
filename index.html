@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Memória - Vocaloid</title>
+  <style>
+      body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #1e1e2f;
+  color: #fff;
+  text-align: center;
+}
+
+.container {
+  padding: 40px 20px;
+}
+
+h1 {
+  margin-bottom: 40px;
+  font-size: 2.5em;
+  color: #66ccff;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.card {
+  position: relative;
+  width: 250px;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.card-text {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 10px;
+  background: rgba(0, 0, 0, 0.6);
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px 3px #000;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Jogo da Memória - Vocaloid</h1>
+    <div class="card-container">
+      <div class="card">
+        <a href="gumi/gumi.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZCGatn8BngfqBt9vvOlKswcEb1EH6lPp1sg&s" alt="Megumi Megpoid">
+        <div class="card-text">Megumi Megpoid</div>
+      </div>
+      <!--<div class="card">
+        <a href="miku/miku.html"><img src="https://i1.sndcdn.com/artworks-V3nNzm4GqwVNPXuc-0e5bjg-t500x500.png" alt="Hatsune Miku">
+        <div class="card-text">Hatsune Miku</div>
+      </div>-->
+      <div class="card">
+        <a href="teto/teto.html"><img src="https://i.pinimg.com/736x/09/99/8e/09998e6f9aff09d50405169e8a1c20b0.jpg" alt="Kasane Teto">
+        <div class="card-text">Kasane Teto</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
